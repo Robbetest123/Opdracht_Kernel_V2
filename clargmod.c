@@ -59,15 +59,14 @@ static void blink_timer_func(struct timer_list *t)
 	gpio_set_value(ios[1], led2);
 	led2 = !led2;
 	
+	count = count+ 1;
 	if (edge[0] == ios[0])
 	{
-		count = count+ 1;
 		printk(KERN_INFO "Aantal edges: %d van led %d\n", count, ios[0]);
 	}
 
 	if (edge[1] == ios[1])
-	{	
-		count = count+ 1;
+	{
 		printk(KERN_INFO "antal edges: %d van led %d\n", count, ios[1]);
 	}
 	
