@@ -26,13 +26,20 @@
  * The module commandline arguments ...
  */
 static int speed = 5;
+
 static int ios[2] = {-1, -1};
 static int arr_argc = 0;
+
+static int edge[2] = {-1, -1}; // de pin waarvan je de edges wil weten
+static int count=0;
 
 module_param(speed, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 MODULE_PARM_DESC(speed, "An integer");
 module_param_array(ios, int, &arr_argc, 0000);
 MODULE_PARM_DESC(ios, "An array of integers");
+
+module_param_array(edge, int, &arr_argc, 0000);
+MODULE_PARM_DESC(edge, "An integer, that defines what pin edge you want");
 
 // #define LED1 4
 
@@ -51,6 +58,20 @@ static void blink_timer_func(struct timer_list *t)
 	led1 = !led1;
 	gpio_set_value(ios[1], led2);
 	led2 = !led2;
+	
+	if (edge[0] == ios[0])
+	{
+		count = count+ 1;
+		printk(KERN_INFO "Aantal edges: %d van led %d\n", count, ios[0]);
+	}
+
+	if (edge[1] == ios[1])
+	{	
+		count = count+ 1;
+		printk(KERN_INFO "antal edges: %d van led %d\n", count, ios[1]);
+	}
+	
+	
 	/* schedule next execution */
 	//blink_timer.data = !data;						// makes the LED toggle
 	blink_timer.expires = jiffies + (speed*HZ); // 1 sec.
