@@ -62,12 +62,12 @@ static void blink_timer_func(struct timer_list *t)
 	count = count+ 1;
 	if (edge[0] == ios[0])
 	{
-		printk(KERN_INFO "Aantal edges: %d van led %d\n", count, ios[0]);
+		printk(KERN_INFO "Aantal edges: %d van led: %d, edge pin %d\n", count, ios[0], edge[0]);
 	}
 
 	if (edge[1] == ios[1])
 	{
-		printk(KERN_INFO "antal edges: %d van led %d\n", count, ios[1]);
+		printk(KERN_INFO "Aantal edges: %d van led %d, edge pin %d\n", count, ios[1], edge[1]);
 	}
 	
 	
